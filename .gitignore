@@ -1,0 +1,12 @@
+# Large media files should stay outside normal Git history.
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# System and editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+~$*
