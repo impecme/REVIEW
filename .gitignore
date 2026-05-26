@@ -5,6 +5,7 @@
 *.mkv
 
 # System and editor noise.
+.vscode/settings.json
 .DS_Store
 Thumbs.db
 *.swp
