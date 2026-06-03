@@ -15,6 +15,7 @@ git add -- \
   单片机 \
   电子材料 \
   纳米材料 \
-  集成电路制造
+  集成电路制造 \
+  集成电路设计
 git commit -m "$msg"
 git push
