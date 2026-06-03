@@ -16,6 +16,8 @@ git add -- \
   电子材料 \
   纳米材料 \
   集成电路制造 \
-  集成电路设计
+  集成电路设计 \
+  AGENTS.md \
+  AI复习指南.md
 git commit -m "$msg"
 git push
