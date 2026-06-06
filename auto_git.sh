@@ -19,6 +19,7 @@ git add -- \
   集成电路制造 \
   集成电路设计 \
   AGENTS.md \
-  AI复习指南.md
+  AI复习指南.md \
+  BSPDN课程设计
 git commit -m "$msg"
 git push
