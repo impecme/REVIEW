@@ -6,6 +6,7 @@ msg="$*"
 if [ -z "$msg" ]; then
   read -r -p "请输入提交名称: " msg
 fi
+
 git add -- \
   .gitattributes \
   .gitignore \
@@ -21,5 +22,9 @@ git add -- \
   AGENTS.md \
   AI复习指南.md \
   BSPDN课程设计
-git commit -m "$msg"
+
+if ! git diff --cached --quiet; then
+  git commit -m "$msg"
+fi
+
 git push
