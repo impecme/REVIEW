@@ -21,7 +21,9 @@ git add -- \
   集成电路设计 \
   AGENTS.md \
   AI复习指南.md \
-  BSPDN课程设计
+  BSPDN课程设计 \
+  嵌入式 \
+  半导体器件与物理
 
 if ! git diff --cached --quiet; then
   git commit -m "$msg"
