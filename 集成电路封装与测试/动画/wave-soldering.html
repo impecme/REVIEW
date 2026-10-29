@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>看懂波峰焊｜接触、分离、凝固</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#172b3d;font:16px/1.65 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:1200px;margin:30px auto;padding:0 24px 36px}h1{font-size:32px;line-height:1.3;margin:5px 0 10px}.kicker{font-size:13px;letter-spacing:2px;color:#217c75;font-weight:700}.intro{color:#526475;margin:0 0 20px}.card{background:white;border:1px solid #dce4e9;border-radius:18px;overflow:hidden;box-shadow:0 5px 20px #24394c06}.bar{padding:17px 22px;display:flex;justify-content:space-between;gap:14px;align-items:center;border-bottom:1px solid #e8edf0}.badge{font-size:13px;border-radius:20px;background:#e8f5f2;color:#147768;padding:4px 12px}svg{display:block;width:100%;height:auto}svg text{font-family:'Microsoft YaHei',sans-serif}.controls{display:flex;gap:16px;align-items:center;padding:0 22px 18px}button{font:inherit;cursor:pointer;border:1px solid #c9d7de;background:#fff;border-radius:9px;padding:8px 15px;color:#203f50}button:focus-visible,input:focus-visible{outline:3px solid #faac3e;outline-offset:3px}#play{background:#147d73;color:white;border:0;min-width:102px}input[type=range]{flex:1;accent-color:#147d73;min-width:70px}.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.stage{text-align:left;padding:13px 15px;border-radius:12px;background:white}.stage strong{display:block;font-size:16px}.stage span{font-size:13px;color:#657886}.stage.active{border-color:#148577;background:#eaf7f3;box-shadow:inset 0 0 0 1px #148577}.explain{padding:19px 23px;border-left:4px solid #1b8a7b;background:#fff;border-radius:0 12px 12px 0;min-height:104px}.explain b{color:#106f64}.legend{display:flex;gap:20px;font-size:13px;color:#5b6b77;flex-wrap:wrap}.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px}.bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.note{background:#fff;border:1px solid #dce4e9;border-radius:12px;padding:15px 19px}.note strong{display:block;margin-bottom:5px}.note p{margin:0;font-size:14px;color:#526475}.source{font-size:12px;color:#6c7b87;margin-top:20px}.source a{color:#287a76}#phase{font-weight:700} @media(max-width:700px){main{padding:0 12px;margin-top:18px}h1{font-size:25px}.stages{grid-template-columns:1fr 1fr}.bottom{grid-template-columns:1fr}.bar{align-items:flex-start;flex-direction:column}.controls{gap:10px;padding:0 12px 14px}.legend{gap:10px}}
+</style>
+<main>
+<div class="kicker">集成电路封装与测试 · 波峰焊</div>
+<h1>板从上面走，焊料从下面涌</h1>
+<p class="intro">以通孔插装元件为例：板底接触焊料波 → 离开时留下适量焊料 → 冷却后形成焊点。</p>
+<section class="card" aria-label="可交互的波峰焊侧视示意动画">
+ <div class="bar"><span id="phase">① 入波前：助焊剂与预热</span><div class="legend"><span><i class="dot" style="background:#168878"></i>PCB</span><span><i class="dot" style="background:#d2943a"></i>铜焊盘</span><span><i class="dot" style="background:#6698bc"></i>焊料</span></div></div>
+ <svg viewBox="0 0 1160 460" role="img" aria-labelledby="drawingTitle drawingDesc">
+ <title id="drawingTitle">电路板经过泵形成的焊料波，焊料润湿焊盘和引脚，离开后冷却</title>
+ <desc id="drawingDesc">绿色电路板向右移动，元件在板上，引脚穿过板。下方槽内的泵将熔融焊料顶起成波峰，板底与波峰接触。右边已离开波峰的引脚留下焊料。</desc>
+ <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4b738b"/></marker><linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b4d4eb"/><stop offset="1" stop-color="#6f9fbe"/></linearGradient></defs>
+ <path d="M130 100H1020" stroke="#b6c8d2" stroke-width="2" marker-end="url(#arrow)"/>
+ <text x="575" y="86" text-anchor="middle" font-size="17" fill="#4b677b">传送方向 →</text>
+ <text x="150" y="140" text-anchor="middle" fill="#73828e" font-size="15">已涂助焊剂、已预热</text>
+ <text x="980" y="140" text-anchor="middle" fill="#73828e" font-size="15">离开波峰 → 冷却</text>
+ <path d="M350 330V429H840V330" fill="#e3ebf0" stroke="#708b9e" stroke-width="3"/>
+ <path d="M354 349H405C438 349 441 264 492 264H658C700 264 711 349 753 349H836V425H354Z" fill="url(#liquid)" stroke="#6b99b7" stroke-width="2"/>
+ <path d="M515 405V303M651 405V303" stroke="#9db4c4" stroke-width="7" opacity=".7"/>
+ <path d="M583 391V306" stroke="#4b738b" stroke-width="4" marker-end="url(#arrow)"/>
+ <circle cx="583" cy="396" r="22" fill="#f2f7fb" stroke="#4b738b" stroke-width="2"/>
+ <g id="pump" fill="#5a819a"><path d="M583 396q-31-29-6-15zM583 396q40-12 16 9zM583 396q-9 42-10 9z"/></g>
+ <text x="610" y="401" font-size="15" fill="#365f79">泵持续循环焊料</text>
+ <text x="393" y="396" font-size="15" fill="#365f79">熔融焊料槽</text>
+ <path d="M560 195V245" stroke="#4b738b" stroke-width="1.5" marker-end="url(#arrow)"/>
+ <text x="560" y="181" text-anchor="middle" font-size="16" fill="#365f79">泵顶起的波峰</text>
+ <path d="M731 300Q753 319 756 337" fill="none" stroke="#4b738b" stroke-width="2" marker-end="url(#arrow)"/>
+ <text x="863" y="350" font-size="14" fill="#4b677b">↙ 多余焊料回流</text>
+ <g id="board" transform="translate(60 0)">
+   <rect x="0" y="250" width="280" height="20" rx="3" fill="#168878"/>
+   <rect x="34" y="190" width="212" height="39" rx="5" fill="#344757"/>
+   <text x="140" y="216" text-anchor="middle" fill="white" font-size="16">通孔插装元件</text>
+   <g id="pins"></g>
+   <text x="280" y="242" text-anchor="end" font-size="14" fill="#116b60">PCB</text>
+ </g>
+ <g id="focusMark"><circle id="focusCircle" cx="600" cy="283" r="22" fill="none" stroke="#eb8d28" stroke-width="2" stroke-dasharray="4 3"/><text id="focusLabel" x="600" y="328" text-anchor="middle" font-size="14" fill="#a85c0f">正在润湿</text></g>
+ <text x="22" y="445" font-size="12" fill="#758693">原理示意，非按比例；为便于观察，板画成水平。实际设备设置输送倾角与浸入深度。</text>
+ </svg>
+ <div class="controls"><button id="play" type="button">▶ 播放</button><label for="progress">过程</label><input id="progress" aria-label="拖动观察波峰焊过程" type="range" min="0" max="1000" value="0"><button id="reset" type="button">重看</button></div>
+</section>
+<div class="stages">
+ <button class="stage active" data-p="0"><strong>① 入波前</strong><span>助焊剂 + 预热</span></button>
+ <button class="stage" data-p="0.45"><strong>② 接触波峰</strong><span>润湿焊盘和引脚</span></button>
+ <button class="stage" data-p="0.73"><strong>③ 离开波峰</strong><span>分离、留锡、回流</span></button>
+ <button class="stage" data-p="1"><strong>④ 冷却成形</strong><span>焊料凝固为焊点</span></button>
+</div>
+<div class="explain" id="explain" aria-live="polite"></div>
+<div class="bottom">
+ <div class="note"><strong>为什么板底接触一片焊料，最后却是一颗颗焊点？</strong><p>润湿使焊料留在可焊的焊盘和引脚上；离开波峰时，多余焊料排回槽内。阻焊层限制非焊接区域沾锡。分离不良时仍可能留下锡桥，造成短路。</p></div>
+ <div class="note"><strong>与回流焊的区别</strong><p><b>波峰焊：</b>焊料由板下的焊料槽供给。<br><b>回流焊：</b>焊料通常已作为焊膏印在焊盘上，进炉加热熔化。<br>这里讲的是元件装到 PCB 上的焊接。</p></div>
+</div>
+<p class="source">依据：本课程《Chapter 4 常规芯片封装技术》PDF 第 5—6 页；回流焊对照见第 13—16 页。动画为教学重绘，焊点轮廓与时间只作示意，不代表工艺参数。<br><a href="file:///D:/b事一堆/b事一堆/复习/整理/集成电路封装与测试/ppt/Chapter%204%20常规芯片封装技术.pdf#page=5">打开原课件</a></p>
+</main>
+<script>
+const $=id=>document.getElementById(id), ns='http://www.w3.org/2000/svg';
+const pins=[50,86,122,158,194,230], joints=[];
+function shape(tag,attrs,parent){const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e}
+pins.forEach(x=>{shape('rect',{x:x-4,y:229,width:8,height:74,rx:2,fill:'#a3afb8',stroke:'#738595','stroke-width':1},$('pins'));shape('rect',{x:x-14,y:267,width:28,height:5,rx:1,fill:'#d2943a'},$('pins'));joints.push(shape('path',{d:`M${x-14} 272Q${x-5} 275 ${x-4} 291L${x+4} 291Q${x+5} 275 ${x+14} 272Z`,fill:'#91c3e3',stroke:'#5d91b3',opacity:0},$('pins')))});
+const texts=[
+ ['① 入波前：助焊剂与预热','<b>先让表面具备被焊料润湿的条件。</b>助焊剂帮助去除氧化物；预热帮助溶剂挥发、降低后续热冲击。元件在板上，引脚穿过 PCB，待焊的焊盘在板底。'],
+ ['② 接触波峰：加热、润湿','<b>观察板底和伸出的引脚接触液态焊料。</b>泵形成的波峰持续供给焊料；焊料润湿焊盘和引脚。此时接触区的焊料仍与槽内相连，尚未成为分离的固态焊点。'],
+ ['③ 离开波峰：少量留下，多余回流','<b>真正要看懂的是“脱离波峰”的瞬间。</b>润湿使适量焊料附着在焊盘和引脚上；表面张力参与焊料成形，多余焊料回落槽内。图中右侧的引脚先离开波峰、先留锡。'],
+ ['④ 冷却成形：建立电气与机械连接','<b>留下的焊料冷却凝固，形成焊点。</b>每个焊点将一个元件引脚与对应 PCB 焊盘连接。相邻焊点应彼此分开；若多余焊料未分开，可能形成锡桥。']
+];
+let p=0,playing=false,last=0;
+function draw(value){p=Math.max(0,Math.min(1,value));const bx=60+p*790;$('board').setAttribute('transform',`translate(${bx} 0)`);$('progress').value=Math.round(p*1000);
+ joints.forEach((e,i)=>{const x=bx+pins[i],wet=x>493;const solid=p>.87;e.setAttribute('opacity',wet?1:0);e.setAttribute('fill',solid?'#aab6c0':'#8ebddd');e.setAttribute('stroke',solid?'#778d9e':'#4d86ad')});
+ const s=p<.22?0:p<.61?1:p<.9?2:3;$('phase').textContent=texts[s][0];$('explain').innerHTML=texts[s][1];document.querySelectorAll('.stage').forEach((e,i)=>e.classList.toggle('active',i===s));
+ const idx=s===1?pins.findIndex(x=>bx+x>493&&bx+x<680):s===2?pins.findIndex(x=>bx+x>720):-1;$('focusMark').style.display=idx>=0?'':'none';if(idx>=0){const x=bx+pins[idx];$('focusCircle').setAttribute('cx',x);$('focusLabel').setAttribute('x',x);$('focusLabel').textContent=s===1?'接触、润湿':'留锡，待冷却'}
+ $('pump').setAttribute('transform',`rotate(${p*2800} 583 396)`);
+}
+function pause(){playing=false;$('play').textContent='▶ 播放'}
+$('play').onclick=()=>{if(playing)pause();else{if(p>=1)draw(0);playing=true;last=performance.now();$('play').textContent='Ⅱ 暂停'}};
+$('progress').oninput=e=>{pause();draw(e.target.value/1000)};$('reset').onclick=()=>{pause();draw(0)};
+document.querySelectorAll('.stage').forEach(e=>e.onclick=()=>{pause();draw(Number(e.dataset.p))});
+function frame(t){if(playing){draw(p+Math.min(t-last,100)/18000);if(p>=1)pause()}last=t;requestAnimationFrame(frame)}
+const start=new URLSearchParams(location.search).get('p');draw(start===null?0:Number(start));requestAnimationFrame(frame);
+</script>
+</html>

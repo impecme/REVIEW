@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,">
+<title>看懂回流焊｜从印焊膏到出炉焊好</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf2f5;color:#203747;font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif}main{max-width:1320px;margin:24px auto;padding:0 22px 30px}h1{font-size:29px;line-height:1.4;margin:5px 0 9px}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:bold;color:#986020}.intro{margin:0;color:#526a7a}.answer{background:#fff7e9;border:1px solid #ead5b0;padding:11px 17px;border-radius:10px;margin:14px 0 18px}.answer b{color:#95521e}.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:8px 0 16px}button{font:inherit;cursor:pointer;color:inherit;background:white;border:1px solid #ccd9e2;border-radius:8px;padding:8px 12px}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #d78737;outline-offset:3px}.step{text-align:left;padding:10px 12px}.step small{display:block;font-size:11px;color:#657d8e}.step strong{font-size:15px}.step.active{border-color:#b3692a;background:#fff3df;box-shadow:inset 0 0 0 1px #b3692a}.card{border:1px solid #d3dfe7;border-radius:15px;background:white;overflow:hidden;box-shadow:0 8px 30px #1d3b4c08}.bar{padding:13px 18px;background:#f9fbfc;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e0e8ed}.bar strong{font-size:17px}.pill{border-radius:20px;background:#e9f1f5;color:#456375;font-size:12px;padding:4px 11px;white-space:nowrap}.views{display:grid;grid-template-columns:1.85fr 1fr}.panel{min-width:0;padding:12px 15px 3px}.panel+.panel{border-left:1px solid #e0e8ed}.panel-title{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#607889;margin-bottom:4px}.panel-title b{color:#2a485b}svg{display:block;width:100%;height:auto}svg text{font-family:"Microsoft YaHei",sans-serif}.caption{font-size:13px;color:#526a7a;min-height:43px;margin:4px 8px 9px}.controls{display:flex;gap:12px;align-items:center;border-top:1px solid #e0e8ed;padding:14px 18px;flex-wrap:wrap}#play{background:#a95b24;color:white;border-color:#a95b24;min-width:130px}#progress{flex:1;min-width:100px;accent-color:#a95b24}#counter{font-size:12px;color:#668092;min-width:42px}.explain{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:16px 20px;margin-top:14px;background:white;border:1px solid #d7e1e8;border-radius:12px}.explain span{font-size:12px;color:#9c5d23;font-weight:bold}.explain p{margin:4px 0 0}.notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.note{padding:14px 18px;border:1px solid #d7e1e8;background:#f8fafc;border-radius:12px}.note p{font-size:13px;color:#526a7a;margin:5px 0 0}a{color:#8f541f}details{margin-top:16px;padding:13px 18px;background:white;border:1px solid #d7e1e8;border-radius:12px}summary{cursor:pointer;font-weight:bold}.curve-wrap{max-width:800px;margin:auto}.curve-note,.source{font-size:12px;color:#647c8c}.source{margin:16px 2px 0}@media(max-width:850px){main{padding:0 12px;margin-top:16px}h1{font-size:24px}.views{grid-template-columns:1fr}.panel+.panel{border-left:0;border-top:1px solid #e0e8ed}.detail{max-width:530px;width:100%;justify-self:center}.steps{grid-template-columns:repeat(3,1fr)}.explain,.notes{grid-template-columns:1fr;gap:12px}.bar{align-items:flex-start;flex-direction:column}.controls{gap:8px}.caption{min-height:0}}
+</style></head><body><main>
+<div class="eyebrow">集成电路封装与测试 · 热风回流焊</div>
+<h1>一块电路板，怎样从“放上元件”变成“焊好元件”？</h1>
+<p class="intro">看机器的动作，也看焊料的变化。点击播放，或选择步骤逐段观察。</p>
+<div class="answer"><b>回流炉做什么？</b>传送电路板，用热风逐步加热，再冷却。焊料在进炉前已印在焊盘上；进炉时元件贴放在焊膏上，冷却后才形成牢固的焊点。</div>
+<nav class="steps" aria-label="选择工艺步骤">
+<button class="step" data-p=".10"><small>进炉前 · 印刷机</small><strong>① 印上焊膏</strong></button>
+<button class="step" data-p=".245"><small>进炉前 · 贴片机</small><strong>② 放置元件</strong></button>
+<button class="step" data-p=".45"><small>回流炉 · 前段</small><strong>③ 送板、预热</strong></button>
+<button class="step" data-p=".675"><small>回流炉 · 高温段</small><strong>④ 熔化、润湿</strong></button>
+<button class="step" data-p=".85"><small>回流炉 · 冷却段</small><strong>⑤ 冷却、凝固</strong></button>
+<button class="step" data-p="1"><small>出炉 · 焊接完成</small><strong>⑥ 看最终焊点</strong></button>
+</nav>
+<section class="card" aria-label="回流焊设备动作与焊点同步演示">
+<div class="bar"><strong id="phase"></strong><span class="pill" id="status"></span></div>
+<div class="views"><div class="panel">
+<div class="panel-title"><b id="machineTitle"></b><span>设备与工件示意</span></div>
+<svg id="factory" viewBox="0 0 780 440" role="img" aria-labelledby="factoryTitle"><title id="factoryTitle">钢网印焊膏、吸嘴贴片、传送带送板通过热风回流炉</title>
+<defs>
+<linearGradient id="metal" x2="0" y2="1"><stop stop-color="#eef4f8"/><stop offset=".4" stop-color="#b9c9d4"/><stop offset="1" stop-color="#8399aa"/></linearGradient>
+<linearGradient id="pcbGreen" x2=".1" y2="1"><stop stop-color="#218f75"/><stop offset="1" stop-color="#11654f"/></linearGradient>
+<linearGradient id="solder" x2=".6" y2="1"><stop stop-color="#f5f9fc"/><stop offset=".4" stop-color="#b5c5d0"/><stop offset=".62" stop-color="#eef3f7"/><stop offset="1" stop-color="#8b9eab"/></linearGradient>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#698698"/></marker>
+<g id="pcbShape"><path d="M0 0L28-48H238L210 0Z" fill="url(#pcbGreen)" stroke="#10634f"/><path d="M0 0H210V8H0Z" fill="#104c41"/><path d="M210 0L238-48V-40L210 8Z" fill="#0b5143"/>
+<path d="M10-9H51L60-24H90M179-8H161L167-19H148M35-38H55L65-27M198-38H177L167-27" stroke="#57ac83" stroke-width="1.6" fill="none"/>
+<g fill="#e2b45f" stroke="#b58030"><path d="M63-12H90L104-37H77Z"/><path d="M135-12H162L176-37H149Z"/></g><g fill="#083e37" stroke="#79ae8a"><ellipse cx="25" cy="-9" rx="4" ry="2"/><ellipse cx="213" cy="-38" rx="4" ry="2"/></g><text x="18" y="-24" font-size="9" fill="#bce1cd">PCB</text></g>
+<g id="pasteShape" fill="#a2afb9" stroke="#728795"><path d="M65-13H88L101-36H78Z"/><path d="M137-13H160L173-36H150Z"/><path d="M65-13V-17H88V-13M137-13V-17H160V-13" fill="#c2ccd2"/></g>
+<g id="partShape"><path d="M78-24H151V-39H78Z" fill="#344b5a"/><path d="M78-39L90-60H163L151-39Z" fill="#526a78"/><path d="M151-24L163-45V-60L151-39Z" fill="#213b4b"/><path d="M78-24H89V-39H78Z M140-24H151V-39H140Z" fill="url(#solder)"/><path d="M78-39L90-60H101L89-39Z M140-39L152-60H163L151-39Z" fill="#ccd8e0"/><text x="121" y="-44" text-anchor="middle" font-size="9" fill="#f0f5f7">102</text></g>
+<g id="joinedShape" fill="url(#solder)" stroke="#a1b3bf" stroke-width=".8"><path d="M63-12Q74-18 78-36L78-24H89L90-12Z"/><path d="M135-12L140-24H151V-36Q155-18 162-12Z"/></g>
+<g id="fanBlade"><path d="M0 0C-20-4-18-22-4-22L0-5C4-20 22-18 22-4L5 0C20 4 18 22 4 22L0 5C-4 20-22 18-22 4Z" fill="#7d97a8"/><circle r="5" fill="#344f62"/></g>
+</defs>
+<rect width="780" height="440" rx="10" fill="#f4f8fa"/><path d="M25 387H755" stroke="#d4dfe7"/>
+<g id="assemblyScene">
+<rect x="130" y="350" width="460" height="30" rx="5" fill="url(#metal)"/><path d="M150 380V405M570 380V405" stroke="#9cabb6" stroke-width="15"/>
+<use href="#pcbShape" transform="translate(170 345) scale(1.7)"/><g id="assemblyPaste" transform="translate(170 345) scale(1.7)"><use href="#pasteShape"/></g>
+<g id="assemblyPart"><use href="#partShape" transform="translate(170 345) scale(1.7)"/></g>
+<g id="printer"><g id="stencil">
+<path d="M145 323L202 222H630L573 323Z" fill="#c3d0d9" fill-opacity=".95" stroke="#7e95a5" stroke-width="2"/><path d="M145 323H573V333H145Z" fill="#8fa3b2"/>
+<path id="stencilHoleL" d="M281 323H323L345 283H303Z" fill="#e2b45f" stroke="#7c8c96" stroke-width="2"/><path id="stencilHoleR" d="M403 323H445L467 283H425Z" fill="#e2b45f" stroke="#7c8c96" stroke-width="2"/><path d="M145 323L202 222H630" fill="none" stroke="#e4edf3" stroke-width="6"/>
+<g id="blade"><path d="M0 0L42-77L29-81L-13-4Z" fill="#344d5e"/><path d="M-12-4L30-81V-118L-12-41Z" fill="#d59042"/><path d="M6-4Q28-8 38-31L64-76Q47-87 42-77Z" fill="url(#solder)"/></g></g>
+<path d="M608 204H694V173" stroke="#7e96a6" fill="none"/><text x="691" y="161" text-anchor="end" font-size="15" fill="#4c6576">钢网＋刮刀</text>
+<text x="34" y="59" font-size="19" fill="#314f61">把焊膏留在要焊接的位置</text><text x="34" y="89" font-size="14" fill="#6a8191">钢网贴合 → 刮刀推膏 → 钢网抬起</text></g>
+<g id="placer"><path d="M110 133H685" stroke="#9daeba" stroke-width="17"/><path d="M110 142V274M685 142V274" stroke="#bdcbd4" stroke-width="9"/>
+<rect x="576" y="315" width="124" height="32" rx="3" fill="#435e70"/><g fill="#a7bac7"><rect x="587" y="320" width="23" height="13"/><rect x="628" y="320" width="23" height="13"/><rect x="668" y="320" width="23" height="13"/></g><text x="639" y="371" text-anchor="middle" font-size="13" fill="#678092">元件供料位置</text>
+<g id="nozzle"><rect x="-27" y="-100" width="54" height="62" rx="6" fill="url(#metal)" stroke="#7e95a6"/><path d="M-13-38H13L8-9H-8Z" fill="#506b7e"/><path d="M-4-9V0H4V-9" fill="#3b5365"/><rect x="-18" y="-86" width="36" height="9" rx="2" fill="#728b9c"/></g>
+<text x="34" y="42" font-size="19" fill="#314f61">吸嘴把元件放到两块焊膏上</text><text x="34" y="70" font-size="14" fill="#6a8191">吸取 → 移到焊盘上方 → 下放 → 松开、抬起</text><text x="34" y="429" font-size="13" fill="#a16328">此时靠焊膏的黏性保持位置，尚未焊牢。</text></g></g>
+<g id="ovenScene">
+<text x="30" y="38" font-size="18" fill="#314f61">传送带送板通过回流炉</text><text x="30" y="64" font-size="13" fill="#6a8191">剖开外壳看内部：风机送风，加热器供热，焊点逐步升温。</text>
+<path d="M112 122L143 100H657L687 122Z" fill="#d8e2e8" stroke="#a0b1bd"/><rect x="112" y="122" width="575" height="196" rx="7" fill="url(#metal)" stroke="#9dafbc"/>
+<rect x="130" y="164" width="535" height="131" rx="5" fill="#f1e8dc"/><rect x="132" y="165" width="118" height="129" fill="#fff2d9"/><rect x="250" y="165" width="118" height="129" fill="#fbe4bd"/><rect x="368" y="165" width="145" height="129" fill="#f9d596"/><rect x="513" y="165" width="151" height="129" fill="#dceef5"/>
+<g fill="#526a7b" font-size="13" text-anchor="middle"><text x="191" y="146">预热</text><text x="309" y="146">保温 / 活性</text><text x="440" y="146">回流高温</text><text x="590" y="146">冷却</text></g>
+<g id="fans"></g><g id="airflow" fill="none" stroke-width="2.3" stroke-dasharray="7 8"></g>
+<g stroke="#c06c36" stroke-width="3" fill="none"><path d="M155 219l8-7 8 7 8-7 8 7 8-7 8 7 8-7 8 7M273 219l8-7 8 7 8-7 8 7 8-7 8 7 8-7 8 7M400 219l8-7 8 7 8-7 8 7 8-7 8 7 8-7 8 7"/></g>
+<path d="M25 314H752" stroke="#49667a" stroke-width="8"/><path d="M25 334H752" stroke="#a6b8c5" stroke-width="5"/><g id="rollers"></g>
+<g id="travellingBoard"><use href="#pcbShape"/><use href="#pasteShape" id="ovenPaste"/><use href="#partShape"/><use href="#joinedShape" id="ovenJoints"/></g>
+<rect x="117" y="337" width="565" height="17" rx="4" fill="#b6c5cf"/><path d="M155 354V379M637 354V379" stroke="#7e94a4" stroke-width="11"/>
+<path d="M73 400H714" stroke="#698698" stroke-width="1.6" marker-end="url(#arrow)"/><text x="393" y="426" text-anchor="middle" font-size="13" fill="#5a7587">板一直向右移动；不同炉区提供不同的热环境</text>
+<rect x="581" y="108" width="63" height="12" rx="2" fill="#36596d"/><circle cx="651" cy="114" r="4" fill="#68a47c"/>
+<rect id="zoneFocus" x="133" y="162" width="115" height="136" fill="none" stroke="#b77435" stroke-width="2" rx="6"/></g>
+<g id="finishedScene"><text x="34" y="58" font-size="20" fill="#314f61">出炉后：同一元件已由焊点固定</text><text x="34" y="90" font-size="14" fill="#6a8191">看两端银色连接：焊盘 → 焊料 → 元件金属端头</text>
+<ellipse cx="388" cy="351" rx="240" ry="21" fill="#dce6ec"/><g transform="translate(122 341) scale(2.25)"><use href="#pcbShape"/><use href="#partShape"/><use href="#joinedShape"/></g>
+<path d="M270 305H99V225" stroke="#718d9e" stroke-width="1.5" fill="none"/><text x="99" y="213" text-anchor="middle" font-size="15" fill="#315a6d">凝固的焊点</text><path d="M468 305H683V225" stroke="#718d9e" stroke-width="1.5" fill="none"/><text x="683" y="213" text-anchor="middle" font-size="15" fill="#315a6d">凝固的焊点</text>
+<rect x="224" y="388" width="332" height="30" rx="15" fill="#e3f1eb"/><text x="390" y="409" text-anchor="middle" font-size="14" fill="#28705b">形成机械连接和电气连接</text></g>
+</svg><p class="caption" id="machineCaption"></p></div>
+<div class="panel detail"><div class="panel-title"><b>盯住同一元件的两端</b><span>放大剖面 · 非等比例</span></div>
+<svg id="detail" viewBox="0 0 400 440" role="img" aria-labelledby="detailTitle"><title id="detailTitle">焊料粉末熔合、润湿端头与焊盘、凝固成连续焊点</title>
+<defs><linearGradient id="liquidMetal" x2=".6" y2="1"><stop stop-color="#f7fcff"/><stop offset=".35" stop-color="#9db5c7"/><stop offset=".55" stop-color="#f3f8fc"/><stop offset="1" stop-color="#88a3b6"/></linearGradient><linearGradient id="solidMetal" x2=".2" y2="1"><stop stop-color="#d8e1e8"/><stop offset="1" stop-color="#91a4b2"/></linearGradient></defs>
+<rect width="400" height="440" rx="10" fill="#f4f8fa"/><text id="detailState" x="200" y="39" text-anchor="middle" font-size="16" fill="#8d5d2d"></text>
+<g id="microHeat" fill="none" stroke="#d9954c" stroke-width="2" stroke-dasharray="5 6"><path d="M164 84q-13 10 0 20t0 20M200 84q-13 10 0 20t0 20M236 84q-13 10 0 20t0 20"/></g><g id="microCool" fill="none" stroke="#559fbb" stroke-width="2" stroke-dasharray="5 6"><path d="M164 83V137M200 83V137M236 83V137"/></g>
+<g id="microVapour" stroke="#a4aab7" fill="none" stroke-width="1.8"><path d="M99 236q-10-12 0-23t0-23M301 236q10-12 0-23t0-23"/></g>
+<rect x="24" y="270" width="352" height="29" rx="3" fill="#1c8168"/><rect x="24" y="295" width="352" height="7" rx="2" fill="#145b4c"/><rect x="80" y="262" width="90" height="8" fill="#cd9a46"/><rect x="230" y="262" width="90" height="8" fill="#cd9a46"/>
+<g id="microPaste"><rect x="96" y="250" width="63" height="12" rx="4" fill="#b7a8b6"/><rect x="241" y="250" width="63" height="12" rx="4" fill="#b7a8b6"/></g><g id="particles"></g>
+<g id="microPart"><rect x="122" y="192" width="156" height="58" rx="3" fill="#354e5d"/><rect x="122" y="192" width="24" height="58" rx="1" fill="url(#solidMetal)"/><rect x="254" y="192" width="24" height="58" rx="1" fill="url(#solidMetal)"/><text x="200" y="225" text-anchor="middle" font-size="18" fill="#e4edf4">102</text></g>
+<g id="fillets" fill="url(#liquidMetal)" stroke="#859eaf" stroke-width="1.3"><path id="leftFillet"/><path id="rightFillet"/></g>
+<g id="microStencil"><path d="M55 248H96V262H55ZM159 248H241V262H159ZM304 248H345V262H304Z" fill="#bbcbd5" stroke="#839bab"/><g id="microBlade"><path d="M0 249L14 220H23L10 249Z" fill="#4e687a"/><path d="M11 249Q26 230 38 249Z" fill="#a0afbb"/></g></g>
+<g id="microNozzle"><rect x="183" y="74" width="34" height="56" rx="3" fill="#a7bbc9"/><path d="M190 130H210L204 150H196Z" fill="#486273"/></g>
+<path d="M91 267L67 332H28" stroke="#8199aa" fill="none"/><text x="28" y="352" font-size="13" fill="#637d8e">铜焊盘</text><text x="330" y="291" font-size="13" fill="#dceee5">PCB</text>
+<g id="labelTerminals"><path d="M133 193L111 161H38" stroke="#8199aa" fill="none"/><text x="38" y="149" font-size="13" fill="#637d8e">金属端头</text></g>
+<g id="jointCallout"><path d="M287 253L330 329H371" stroke="#8199aa" fill="none"/><text x="371" y="351" text-anchor="end" font-size="13" fill="#536f80">连续的焊料连接</text></g>
+<text id="materialLabel" x="200" y="389" text-anchor="middle" font-size="13" fill="#677d8d"></text><text id="materialLabel2" x="200" y="414" text-anchor="middle" font-size="13" fill="#677d8d"></text></svg>
+<p class="caption" id="detailCaption"></p></div></div>
+<div class="controls"><button id="play">▶ 播放全过程</button><button id="reset">从头看</button><label for="progress">进度</label><input id="progress" type="range" min="0" max="1000" value="0" aria-label="拖动查看印焊膏、贴片、回流的全过程"><span id="counter">0%</span><button id="slow" aria-pressed="false">慢放 ×0.5</button></div></section>
+<div class="explain" aria-live="polite"><div><span>这时机器做什么</span><p id="operation"></p></div><div><span>板上的材料发生什么</span><p id="change"></p></div></div>
+<div class="notes"><div class="note"><strong>为什么加热就能“焊上”？</strong><p>焊料已经位于元件端头与焊盘之间。助焊剂帮助清除氧化物，随后液态焊料润湿两侧金属，冷却后留下连续的固态连接。仅仅把元件放在干焊盘上加热，不能完成这里演示的焊接。</p></div><div class="note"><strong>实际操作怎样控制？</strong><p>先完成印刷、贴片，再设定各炉区温度和输送速度，试焊并测量焊点温度曲线。炉区设定温度与实际焊点温度不同。<a href="wave-soldering.html">对照波峰焊</a> · <a href="smt-stencil-printing.html">单独看焊膏印刷</a></p></div></div>
+<details><summary>辅助理解：这块板的焊点温度怎样变化？</summary><div class="curve-wrap"><svg viewBox="0 0 780 225" role="img" aria-label="预热、保温、回流、冷却四阶段焊点温度曲线">
+<path d="M58 20V184H748" fill="none" stroke="#8098a8"/><text x="5" y="18" font-size="12" fill="#657c8c">焊点温度</text><text x="742" y="216" text-anchor="end" font-size="12" fill="#657c8c">进炉后的时间 →</text><path d="M58 75H734" stroke="#bb925e" stroke-dasharray="5 5"/><text x="12" y="80" font-size="13" fill="#956a35">T_L</text><path id="curveBase" fill="none" stroke="#cfdae2" stroke-width="3"/><path id="curvePast" fill="none" stroke="#b6692b" stroke-width="3"/><circle id="curveDot" r="5" fill="#a85c25" stroke="white" stroke-width="2"/><path id="tal" fill="none" stroke="#ae8252"/><text id="talText" y="15" text-anchor="middle" font-size="12" fill="#956a35">TAL：高于液相线的时间</text><text x="544" y="47" font-size="12" fill="#956a35">T_p</text><g font-size="12" fill="#657c8c" text-anchor="middle"><text x="145" y="204">预热</text><text x="320" y="204">保温 / 活性</text><text x="485" y="204">回流</text><text x="650" y="204">冷却</text></g></svg><p class="curve-note">印刷、贴片在进炉前完成，不属于炉内温度曲线。T_L 为液相线，T_p 为峰值温度；曲线与动画为定性示意，不提供通用生产参数。</p></div></details>
+<p class="source">课程依据：《Chapter 4 常规芯片封装技术》PDF 第 9—12 页（焊膏印刷）、第 13 页（贴片、回流材料变化）、第 14—16 页（温度曲线）、第 17—18 页（印刷机、贴片机、回流炉）。<a href="../ppt/Chapter%204%20常规芯片封装技术.pdf#page=13">打开课件</a><br>本动画为设备与材料变化的教学示意，并非设备实拍。外壳剖开，元件、颗粒放大，时间压缩；实际熔化与凝固区间取决于焊料合金。助焊剂残留未详细绘出，焊点颜色不用于判定实际质量。</p>
+</main><script>
+const $=id=>document.getElementById(id),ns='http://www.w3.org/2000/svg',clamp=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,t)=>a+(b-a)*clamp(t),ease=x=>{x=clamp(x);return x*x*(3-2*x)};
+const show=(id,v)=>$(id).style.display=v?'':'none',attr=(id,name,value)=>$(id).setAttribute(name,value),text=(id,value)=>$(id).textContent=value;
+const bounds=[0,.16,.32,.55,.75,.90,1];
+const info=[
+['① 印刷机把焊膏印到焊盘上','准备焊接材料','印刷机：钢网与刮刀','钢网贴到板面，刮刀推动焊膏通过开口，随后钢网抬起。','焊盘上留下两小块焊膏，里面是焊料金属粉末和助焊剂载体。','看刮刀移动、钢网抬起，焊膏留在下面的电路板上。','此时还没有元件，焊膏已经放在将来要焊接的位置。'],
+['② 贴片机把元件放到焊膏上','已经贴好，还未焊牢','贴片机：吸嘴取放元件','吸嘴吸住元件，移到焊盘上方，下放并松开，再抬起。','两端金属端头接触焊膏，焊膏的黏性暂时保持元件位置。','看吸嘴下放、松开、抬起；随后电路板才会进入回流炉。','贴放一只片式元件，两端分别对应一块焊盘。'],
+['③ 传送带送板入炉，热风逐步加热','预热 → 保温 / 活性','回流炉剖开看：传送带、风机、加热器','传送带持续送板。风机使空气经过加热器，再把热量传给板和元件。','先温和挥发溶剂，再使助焊剂活化、清除氧化物，并使温度趋于均匀。','看电路板在炉内移动；橙色虚线表示热风流动。','焊料仍以颗粒为主，元件还没有形成最终焊点。'],
+['④ 焊料颗粒熔合，润湿端头和焊盘','焊料熔化、润湿','回流炉剖开看：高温段','电路板进入高温段，焊点继续吸收热量，温度进入熔化区间并超过液相线。','焊料颗粒逐渐熔合为液体，润湿焊盘和元件金属端头，形成连续连接。','炉子仍在送板和加热；连接的变化发生在元件两端的焊料里。','看颗粒消失、焊料沿金属端头铺展。此时仍是液态，要继续冷却。'],
+['⑤ 冷却段带走热量，焊料逐渐凝固','冷却中','回流炉剖开看：冷却段','电路板继续向前，冷却段带走热量，使焊点温度下降。','刚进入冷却段时焊料仍可能是液态；继续降温后，连续的焊料连接逐渐凝固。','蓝色虚线表示冷却气流。进入冷却段，不等于立即凝固。','焊料凝固后保持连接形状，不会变回印刷时的粉末颗粒。'],
+['⑥ 焊接完成：两端留下牢固的焊点','形成固态焊点','出炉后的电路板：看两端银色焊点','电路板出炉，后续按工艺进行检查，必要时清洗或返修。','固态焊料把元件金属端头和焊盘连起来，提供机械固定与电气连接。','从裸焊盘，到焊膏，再到元件两端的焊点，材料与位置一一对应。','连接的是“端头—焊料—焊盘”；元件本体和PCB保持固态。']
+];
+for(const cx of [191,309,440,590]){
+ const h=document.createElementNS(ns,'g');h.setAttribute('transform','translate('+cx+' 191)');h.innerHTML='<g class="rotor"><use href="#fanBlade"/></g>';$('fans').appendChild(h);
+ for(const dx of [-23,0,23]){const a=document.createElementNS(ns,'path');a.setAttribute('d','M'+(cx+dx)+' 227q-8 14 0 27t0 26');a.setAttribute('stroke',cx===590?'#579ebc':'#d5934a');$('airflow').appendChild(a)}
+}
+for(let i=0;i<27;i++){const g=document.createElementNS(ns,'g');g.setAttribute('transform','translate('+(31+i*27)+' 324)');g.innerHTML='<g class="wheel"><circle r="6" fill="#a2b5c2" stroke="#68859a"/><path d="M-4 0H4M0-4V4" stroke="#dce5eb"/></g>';$('rollers').appendChild(g)}
+for(let side=0;side<2;side++)for(let i=0;i<18;i++){const c=document.createElementNS(ns,'circle');c.dataset.y=253+Math.floor(i/9)*5.7;c.setAttribute('cx',100+side*145+(i%9)*6.65);c.setAttribute('cy',c.dataset.y);c.setAttribute('r',2.7);c.setAttribute('fill',i%3===0?'#cad4db':'#8e9fac');c.setAttribute('stroke','#627e91');c.setAttribute('stroke-width','.6');$('particles').appendChild(c)}
+const knots=[[0,.07],[.20,.49],[.3966,.55],[.58,.85],[.70,1],[.76,.86],[.86,.42],[1,.07]],TL=.75,TS=.64;
+function temp(q){for(let i=1;i<knots.length;i++)if(q<=knots[i][0]){const a=knots[i-1],b=knots[i];return lerp(a[1],b[1],(q-a[0])/(b[0]-a[0]))}return .07}
+const xy=(q,t)=>[58+q*676,180-t*140],curve=pts=>pts.map((a,i)=>(i?'L':'M')+xy(a[0],a[1]).join(' ')).join(' ');
+attr('curveBase','d',curve(knots));
+let crossings=[];for(let i=1;i<knots.length;i++){const a=knots[i-1],b=knots[i];if((a[1]-TL)*(b[1]-TL)<0)crossings.push(a[0]+(TL-a[1])*(b[0]-a[0])/(b[1]-a[1]))}
+const xA=xy(crossings[0],TL)[0],xB=xy(crossings[1],TL)[0];attr('tal','d','M'+xA+' 35V25H'+xB+'V35');attr('talText','x',(xA+xB)/2);
+let p=0,playing=false,last=0,speed=1;
+function draw(value){
+ p=clamp(value);const s=p>=.90?5:bounds.findIndex((v,i)=>i<5&&p>=v&&p<bounds[i+1]),q=clamp((p-bounds[s])/(bounds[s+1]-bounds[s])),d=info[s];
+ text('phase',d[0]);text('status',d[1]);text('machineTitle',d[2]);text('operation',d[3]);text('change',d[4]);text('machineCaption',d[5]);text('detailCaption',d[6]);text('counter',Math.round(p*100)+'%');$('progress').value=Math.round(p*1000);
+ document.querySelectorAll('.step').forEach((e,i)=>{e.classList.toggle('active',i===s);e.setAttribute('aria-current',i===s?'step':'false')});
+ show('assemblyScene',s<2);show('printer',s===0);show('placer',s===1);show('ovenScene',s>=2&&s<5);show('finishedScene',s===5);
+ const pq=s===0?q:1,stroke=ease((pq-.18)/.56),lift=pq<.18?70*(1-ease(pq/.18)):pq>.77?100*ease((pq-.77)/.23):0;
+ attr('stencil','transform','translate(0 '+(-lift)+')');attr('blade','transform','translate('+(190+350*stroke)+' 323)');
+ const printedL=clamp((stroke-.20)*8),printedR=clamp((stroke-.56)*8);
+ attr('stencilHoleL','fill',pq>.77?'#657f91':printedL>.1?'#a2afb9':'#e2b45f');attr('stencilHoleR','fill',pq>.77?'#657f91':printedR>.1?'#a2afb9':'#e2b45f');
+ attr('assemblyPaste','opacity',Math.max(printedL,printedR));show('assemblyPart',s===1);
+ let partOffset=0,nozzleOffset=0,nx=375,ny=260;
+ if(s===1){if(q<.35){nx=lerp(630,375,ease(q/.35));ny=180}else if(q<.70){ny=lerp(180,260,ease((q-.35)/.35))}else{ny=lerp(260,180,ease((q-.76)/.24))}
+ attr('nozzle','transform','translate('+nx+' '+ny+')');attr('assemblyPart','transform','translate('+(q<.70?nx-375:0)+' '+(q<.70?ny-260:0)+')');
+ partOffset=q<.35?-60:q<.70?lerp(-60,0,ease((q-.35)/.35)):0;nozzleOffset=q<.70?partOffset:lerp(0,-60,ease((q-.76)/.24));}
+ const oq=clamp((p-.32)/.58),t=temp(oq),reached=oq>=crossings[0],cooling=s>=4,solid=cooling&&t<TS,melt=clamp((t-TS)/(TL-TS)),formed=s>=2?(reached?1:melt):0;
+ let center;if(s===2)center=q<.5?lerp(75,250,q*2):lerp(250,368,(q-.5)*2);else if(s===3)center=lerp(368,513,q);else center=lerp(513,720,q);
+ attr('travellingBoard','transform','translate('+(center-54)+' 310) scale(.45)');attr('ovenPaste','opacity',1-formed);attr('ovenJoints','opacity',formed);
+ document.querySelectorAll('.rotor').forEach((e,i)=>e.setAttribute('transform','rotate('+(p*9800+i*35)+')'));document.querySelectorAll('.wheel').forEach(e=>e.setAttribute('transform','rotate('+(-p*14000)+')'));attr('airflow','stroke-dashoffset',-p*1000);
+ const zone=s===2?(q<.5?0:1):s===3?2:3;attr('zoneFocus','x',[133,251,369,514][zone]);attr('zoneFocus','width',[116,116,143,149][zone]);attr('zoneFocus','stroke',zone===3?'#579ebc':'#b77435');
+ show('microStencil',s===0&&q<.98);attr('microStencil','transform','translate(0 '+(-lift*.7)+')');attr('microBlade','transform','translate('+(65+285*stroke)+' 0)');
+ show('microPart',s>=1);attr('microPart','transform','translate(0 '+partOffset+')');show('microNozzle',s===1);attr('microNozzle','transform','translate(0 '+(42+nozzleOffset)+')');
+ show('labelTerminals',s>=1&&partOffset>-20);show('jointCallout',formed>.7||s===5);show('microHeat',s===2||s===3);show('microCool',s===4);attr('microHeat','stroke-dashoffset',-p*900);attr('microCool','stroke-dashoffset',-p*900);show('microVapour',s===2);attr('microVapour','transform','translate(0 '+(-6*Math.sin(q*Math.PI))+')');
+ attr('microPaste','opacity',s===0?1:1-formed);$('microPaste').children[0].setAttribute('opacity',s===0?printedL:1);$('microPaste').children[1].setAttribute('opacity',s===0?printedR:1);
+ Array.from($('particles').children).forEach((c,i)=>{const amount=s===0?(i<18?printedL:printedR):1;c.setAttribute('opacity',amount*(1-formed));c.setAttribute('cy',Number(c.dataset.y)+formed*3)});
+ const f=s===5?1:formed,spread=ease(f),top=262-42*spread;attr('fillets','opacity',f);attr('fillets','fill',solid||s===5?'url(#solidMetal)':'url(#liquidMetal)');
+ attr('leftFillet','d','M'+lerp(96,83,spread)+' 262Q113 262 122 '+top+'L122 250H146Q153 260 '+lerp(159,168,spread)+' 262Z');
+ attr('rightFillet','d','M'+lerp(304,317,spread)+' 262Q287 262 278 '+top+'L278 250H254Q247 260 '+lerp(241,232,spread)+' 262Z');
+ let state='裸焊盘：等待印上焊膏',a='黄色：铜焊盘',b='先把焊接材料放到这两个位置';
+ if(s===0&&stroke>.2){state=pq>.78?'钢网离开，焊膏留在焊盘上':'焊膏通过钢网开口转移到焊盘';a='灰色颗粒：金属焊料粉末';b='淡紫色：助焊剂载体'}
+ if(s===1){state=partOffset<0?'元件随吸嘴移动、下放':'端头落到焊膏上，尚未焊牢';a='焊膏位于金属端头与铜焊盘之间';b='贴片是放置元件，焊接尚未完成';text('status',partOffset<0?'正在取放元件':'已经贴好，还未焊牢')}
+ if(s===2){state='加热、活化，焊料仍以颗粒为主';a='溶剂挥发；助焊剂帮助去除氧化物';b='温度逐渐升高，为润湿做好准备'}
+ if(s===3){state=t>=TL?'液态焊料润湿端头与焊盘':f>0?'焊料颗粒开始熔合':'继续升温，即将进入熔化区间';a='焊料熔化，元件本体与PCB保持固态';b='观察两端：颗粒 → 连续液态焊料'}
+ if(s===4){state=solid?'温度下降，焊料已凝固':t>=TL?'正在降温，焊料仍为液态':'继续冷却，焊料逐渐凝固';a='冷却带走热量，连接形状保留下来';b='不会重新变回焊膏颗粒';text('status',solid?'焊料已经凝固':t>=TL?'冷却中，仍为液态':'焊料正在凝固')}
+ if(s===5){state='固态焊点：两端都已连接';a='金属端头 ← 焊料 → 铜焊盘';b='形成机械固定和电气连接'}
+ text('detailState',state);text('materialLabel',a);text('materialLabel2',b);
+ attr('curvePast','d',curve([...knots.filter(a=>a[0]<oq),[oq,t]]));const dot=xy(oq,t);attr('curveDot','cx',dot[0]);attr('curveDot','cy',dot[1]);
+}
+function pause(){playing=false;text('play','▶ 播放全过程')}
+$('play').onclick=()=>{if(playing)pause();else{if(p>=1)draw(0);playing=true;last=performance.now();text('play','Ⅱ 暂停')}};
+$('progress').oninput=e=>{pause();draw(Number(e.target.value)/1000)};$('reset').onclick=()=>{pause();draw(0)};
+$('slow').onclick=()=>{speed=speed===1?.5:1;$('slow').setAttribute('aria-pressed',String(speed===.5));text('slow',speed===.5?'恢复正常速度':'慢放 ×0.5')};
+document.querySelectorAll('.step').forEach(e=>e.onclick=()=>{pause();draw(Number(e.dataset.p))});
+function frame(now){if(playing){draw(p+Math.min(now-last,100)/44000*speed);if(p>=1)pause()}last=now;requestAnimationFrame(frame)}
+const initial=Number(new URLSearchParams(location.search).get('p')||0);draw(Number.isFinite(initial)?initial:0);requestAnimationFrame(frame);
+</script></body></html>
